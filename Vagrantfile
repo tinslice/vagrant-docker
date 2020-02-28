@@ -32,12 +32,15 @@ Vagrant.configure("2") do |config|
     fi
   SHELL
     
-  config.vm.provision "dotfiles", type: "shell", preserve_order: true, privileged: false, inline: <<-SHELL
+  config.vm.provision "dotfiles", type: "shell", preserve_order: true, privileged: false, run: "always", inline: <<-SHELL
     if [ ! -d ~/.dotfiles ]; then
       rm -rf .bash_profile .bashrc
       git clone https://github.com/tinslice/dotfiles.git ~/.dotfiles
       cd ~/.dotfiles
       ./install
+    else
+      cd ~/.dotfiles
+      git pull
     fi
   SHELL
     
@@ -68,7 +71,6 @@ Vagrant.configure("2") do |config|
       vb.memory = "4000"
       vb.cpus = 2
     end
-
     
     # srv01.vm.provision "copy-ssh", type: "file", preserve_order: true, source: "~/.ssh/id_rsa", destination: "~/.ssh/id_rsa"
   

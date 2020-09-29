@@ -1,27 +1,42 @@
-# vagrant-docker
+# vagrant-test-env
 
-Vagrant configuration for docker enabled virtual machine.
-
-NOTE: 
-
-- The Vagrant configuration exposes some ports so if you what to remove them just add a `#` in front of each `forwarded_port` rule.
-- The mount location is `/workspace`
+Vagrant configuration for test virtual machines.
 
 ## Usage
 
-Create a `.vagrantuser` for custom configuration as in the following example bellow:
+Create a `.vagrantuser` file for custom configuration as in the following example:
 
 ```yml
-services:
-  vm_name: docker-dev
-  config_location: path/to/your/project/or/docker-compose/configuration
+vm_box: ubuntu/bionic64
+# vm_name: my-custom-domain
+## Show VM Interface
+# show_gui: true
+ssh:
+  ## Enable ssh authentication with custom ssh key
+  # public_key: "~/.ssh/id_rsa.pub"
+nodes:
+  - name: node-01
+    cpu: 1
+    memory: 1024
+    ip: 192.168.90.21
+  - name: node-02
+    cpu: 1
+    memory: 1024
+    ip: 192.168.90.22
 docker:
-  registry: docker-registry-domain
-  user: docker-user
-  password: docker-password
+  ## Enable docker install
+  # install: true
+  # registry: your-private-registry
+  # user:
+  # password:
 ```
 
-**Start the virtual machine**
+**Install the 'nugrant' plugin**
+
+```bash
+vagrant plugin install nugrant
+```
+**Start the virtual machines**
 
 ```bash
 vagrant up
@@ -32,5 +47,15 @@ NOTE: the first time you start the vm vagrant will ask to install the required p
 **SSH into the VM**
 
 ```bash
-vagrant ssh
+# vagrant ssh <node-name>
+vagrant ssh node-01
+```
+
+**Other commands**
+
+```bash
+# stop all virtual machines
+vagrant halt
+# restart all virtual machines
+vagrant reload
 ```

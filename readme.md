@@ -36,6 +36,13 @@ docker:
 ```bash
 vagrant plugin install nugrant
 ```
+
+**Auto update hosts file**
+
+```bash
+vagrant plugin install vagrant-hostsupdater
+```
+
 **Start the virtual machines**
 
 ```bash

@@ -6,6 +6,7 @@ ENV["LC_ALL"] = "en_US.UTF-8"
 Vagrant.require_version ">= 2.2.10"
 
 Vagrant.configure("2") do |config|
+  # add "vagrant-hostsupdater" to update hosts file on `vagrant up`
   config.vagrant.plugins = [ "nugrant", "vagrant-vbguest", "vagrant-disksize", "vagrant-docker-compose", "vagrant-reload"]
 
   config.user.defaults = {

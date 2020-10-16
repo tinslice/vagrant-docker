@@ -44,6 +44,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "init", type: "shell", preserve_order: true, privileged: false, inline: <<-SHELL
+    mkdir -p ~/.ssh
     if ! grep -q github.com ~/.ssh/known_hosts; then
       ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     fi
